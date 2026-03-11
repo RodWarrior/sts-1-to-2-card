@@ -15,5 +15,6 @@ public class Entry
         // 传入参数随意，只要不和其他人撞车即可
         ModHelper.AddModelToPool<SilentCardPool, src.green.cards.GreenConcentrate>();
         ModHelper.AddModelToPool<IroncladCardPool, src.red.cards.RedEvolve>();
+        ModHelper.AddModelToPool<IroncladCardPool, src.red.cards.RedReaper>();
     }
 }

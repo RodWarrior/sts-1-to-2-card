@@ -3,5 +3,9 @@
     "GREEN_CONCENTRATE.title": "全神贯注",
 
 	"RED_EVOLVE.description": "每当你抽到一张状态牌时，抽{RedEvolvePower:diff()}张牌。",
-	"RED_EVOLVE.title": "进化"
+	"RED_EVOLVE.title": "进化",
+
+    "RED_REAPER.description": "对所有敌人造成{Damage:diff()}点伤害。未被[gold]格挡[/gold]的伤害将回复你的生命。",
+    "RED_REAPER.title":"死亡收割"
+    	
 }
