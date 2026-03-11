@@ -1,0 +1,7 @@
+{
+    "GREEN_CONCENTRATE.description": "丢弃{Cards:diff()}张牌。\n获得{Energy:energyIcons()}。",
+    "GREEN_CONCENTRATE.title": "全神贯注",
+
+	"RED_EVOLVE.description": "每当你抽到一张状态牌时，抽{RedEvolvePower:diff()}张牌。",
+	"RED_EVOLVE.title": "进化"
+}

@@ -1,0 +1,5 @@
+{
+	"RED_EVOLVE_POWER.description": "每当你抽到一张[gold]状态牌[/gold]时，抽更多牌。",
+	"RED_EVOLVE_POWER.smartDescription": "每当你抽到一张[gold]状态牌[/gold]时，抽[blue]{Amount}[/blue]张牌。",
+	"RED_EVOLVE_POWER.title": "进化"
+}
