@@ -23,4 +23,8 @@
  如 每当你抽到一张状态牌时，抽{RedEvolvePower:diff()}张牌。
 
 power里数值的本地化写法为[blue]{Amount}[/blue]
+<<<<<<< HEAD
  如 每当你抽到一张[gold]状态牌[/gold]时，抽[blue]{Amount}[/blue]张牌。
+=======
+ 如 每当你抽到一张[gold]状态牌[/gold]时，抽[blue]{Amount}[/blue]张牌。
+>>>>>>> fdc64936900560b5020d742e0c747e8078b2c111
