@@ -5,7 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using sts1to2card.src.red.Powers ;
+using sts1to2card.src.red.Powers;
 
 namespace sts1to2card.src.red.cards  // 根据你的模组命名空间调整
 {

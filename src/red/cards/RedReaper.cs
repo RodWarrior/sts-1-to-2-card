@@ -1,15 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using MegaCrit.Sts2.Core.Models;
+using sts1to2card.src.red.vfx;
+
 
 namespace sts1to2card.src.red.cards
 {
@@ -20,7 +22,6 @@ namespace sts1to2card.src.red.cards
         {
         }
 
-        // 添加消耗词条
         public override IEnumerable<CardKeyword> CanonicalKeywords
         {
             get
@@ -40,15 +41,34 @@ namespace sts1to2card.src.red.cards
             }
         }
 
+
+        // ===== 播放特效 =====
+        public override async Task OnEnqueuePlayVfx(Creature? target)
+        {
+            RedReaperVfx.Play(base.Owner.Creature);
+
+            await CreatureCmd.TriggerAnim(
+                base.Owner.Creature,
+                "Attack",
+                base.Owner.Character.AttackAnimDelay
+            );
+        }
+
+        // ===== 卡牌效果 =====
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            // 播放闪电特效
+            RedReaperVfx.Play(Owner.Creature);
+            // 等一点时间让特效出现
+            await Task.Delay(120);
+            
             AttackCommand attackCommand = await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
                 .FromCard(this)
                 .TargetingAllOpponents(base.CombatState!)
                 .WithHitFx("vfx/vfx_attack_slash", null, null)
                 .Execute(choiceContext);
 
-            int totalDamage = attackCommand.Results.Sum(r => r.TotalDamage + r.OverkillDamage);
+            int totalDamage = attackCommand.Results.Sum(r => r.TotalDamage);
 
             await CreatureCmd.Heal(base.Owner.Creature, totalDamage, true);
         }
