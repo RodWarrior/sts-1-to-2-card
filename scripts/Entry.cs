@@ -1,8 +1,13 @@
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Modding;
 using MegaCrit.Sts2.Core.Models.CardPools;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using BaseLib.Config;
 using sts1to2card.Scripts;
+using System;
+using System.Linq;
+using System.Reflection;
+using MegaCrit.Sts2.Core.Models;
 
 namespace sts1to2card.Scripts
 {
@@ -11,40 +16,39 @@ namespace sts1to2card.Scripts
     {
         public static void Init()
         {
-            // 注册配置，让游戏内显示设置界面
+            // 注册配置
             ModConfigRegistry.Register("sts1to2card", new ModConfig());
 
-            // 红卡
-            if (ModConfig.RedEvolve)
-                ModHelper.AddModelToPool<IroncladCardPool, src.red.cards.RedEvolve>();
+            // 自动注册卡牌
+            RegisterCards();
+        }
 
-            if (ModConfig.RedPowerThrough)
-                ModHelper.AddModelToPool<IroncladCardPool, src.red.cards.RedPowerThrough>();
+        private static void RegisterCards()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
 
-            if (ModConfig.RedFlex)
-                ModHelper.AddModelToPool<IroncladCardPool, src.red.cards.RedFlex>();
+            var cardTypes = assembly.GetTypes()
+                .Where(t =>
+                    !t.IsAbstract &&
+                    typeof(CardModel).IsAssignableFrom(t)
+                );
 
-            if (ModConfig.RedRecklessCharge)
-                ModHelper.AddModelToPool<IroncladCardPool, src.red.cards.RedRecklessCharge>();
+            foreach (var type in cardTypes)
+            {
+                var name = type.Name;
 
-            // 飞身踢待修复
-            // ModHelper.AddModelToPool<IroncladCardPool, src.red.cards.RedDropKick>();
+                // 红卡
+                if (name.StartsWith("Red"))
+                {
+                    ModHelper.AddModelToPool(typeof(IroncladCardPool), type);
+                }
 
-            if (ModConfig.RedSpotWeakness)
-                ModHelper.AddModelToPool<IroncladCardPool, src.red.cards.RedSpotWeakness>();
-
-            if (ModConfig.RedReaper)
-                ModHelper.AddModelToPool<IroncladCardPool, src.red.cards.RedReaper>();
-
-            if (ModConfig.RedLimitBreak)
-                ModHelper.AddModelToPool<IroncladCardPool, src.red.cards.RedLimitBreak>();
-
-            // 绿卡
-            if (ModConfig.GreenConcentrate)
-                ModHelper.AddModelToPool<SilentCardPool, src.green.cards.GreenConcentrate>();
-
-            // 暂时无法实现尸爆效果
-            // ModHelper.AddModelToPool<SilentCardPool, src.green.cards.GreenCorpseExplosion>();
+                // 绿卡
+                else if (name.StartsWith("Green"))
+                {
+                    ModHelper.AddModelToPool(typeof(SilentCardPool), type);
+                }
+            }
         }
     }
 }
