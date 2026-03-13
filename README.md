@@ -27,7 +27,7 @@
  -全神贯注 (Concentrate)
  -致残毒云 (Crippling Poison)
  -催化剂 (Catalyst)
- -尸爆术 (Corpse Explosion)
+
 
  -抢占先机 声东击西 铁蒺藜
 
